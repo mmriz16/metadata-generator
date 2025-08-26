@@ -1,23 +1,32 @@
 import { NextRequest, NextResponse } from "next/server";
-import OpenAI from "openai";
-import categoryMapping from "@/lib/categoryMapping.json";
+import { openai } from "@/lib/openai";
 
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+interface MetadataResult {
+  filename: string;
+  title: string;
+  keywords: string;
+  category: number;
+  releases: string;
+}
 
 const defaultCategory = 8;
 
-export async function POST(req: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
-    const { filenames } = await req.json();
-    if (!Array.isArray(filenames)) {
-      return NextResponse.json({ error: "filenames must be an array" }, { status: 400 });
+    const { filenames } = await request.json();
+
+    if (!filenames || !Array.isArray(filenames)) {
+      return NextResponse.json(
+        { error: "Invalid filenames array" },
+        { status: 400 }
+      );
     }
 
-    const results: any[] = [];
+    const results: MetadataResult[] = [];
 
     for (const filename of filenames) {
       // Title
-      const titleResp = await client.chat.completions.create({
+      const titleResp = await openai.chat.completions.create({
         model: "gpt-4o-mini",
         messages: [
           { role: "system", content: "You are an expert AI assistant that generates short, SEO-friendly titles for stock icons. Your task is to create a title based on a given filename." },
@@ -39,7 +48,7 @@ export async function POST(req: NextRequest) {
       const title = (titleResp.choices?.[0]?.message?.content || "").slice(0, 200);
 
       // Keywords
-      const kwResp = await client.chat.completions.create({
+      const kwResp = await openai.chat.completions.create({
         model: "gpt-4o-mini",
         messages: [
           { role: "system", content: "You are an AI assistant who helps create metadata." },
@@ -60,8 +69,8 @@ export async function POST(req: NextRequest) {
         temperature: 0.7,
         max_tokens: 400,
       });
-      let keywordsRaw = kwResp.choices?.[0]?.message?.content || "";
-      let keywords = keywordsRaw
+      const keywordsRaw = kwResp.choices?.[0]?.message?.content || "";
+      const keywords = keywordsRaw
         .replace(/\d+/g, "")
         .split(/,|\n|\r/)
         .map((k) => k.trim())
@@ -70,7 +79,7 @@ export async function POST(req: NextRequest) {
         .join(", ");
 
       // AI-powered category determination
-      const categoryResp = await client.chat.completions.create({
+      const categoryResp = await openai.chat.completions.create({
         model: "gpt-4o-mini",
         messages: [
           { role: "system", content: "You are an AI assistant that categorizes stock icons into Adobe Stock categories. You must respond with ONLY a number from 1-21." },

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -28,17 +29,17 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <header className="flex items-center justify-between px-6 py-6 border-b border-gray-200">
-          <a href="/" className="text-xl font-bold text-gray-900 hover:text-gray-700 transition-colors">
-            AS Metadata Generator
-          </a>
+           <Link href="/" className="text-xl font-bold text-gray-900 hover:text-gray-700 transition-colors">
+             AS Metadata Generator
+           </Link>
           <nav className="flex gap-6">
-             <a href="/review" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
-               Review
-             </a>
-             <a href="/export" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
-               Export
-             </a>
-           </nav>
+              <Link href="/review" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                Review
+              </Link>
+              <Link href="/export" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                Export
+              </Link>
+            </nav>
         </header>
         {children}
       </body>

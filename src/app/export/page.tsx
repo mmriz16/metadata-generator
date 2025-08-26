@@ -2,17 +2,28 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import Papa from "papaparse";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Select } from "@/components/ui/select";
-import Papa from "papaparse";
 
 type ExportFormat = "adobe" | "shutterstock";
 
+interface MetadataRow {
+  filename: string;
+  title?: string;
+  description?: string;
+  keywords: string;
+  category?: number;
+  categories?: string;
+  releases?: string;
+  editorial?: string;
+  matureContent?: string;
+  illustration?: string;
+}
+
 export default function ExportPage() {
-  const [rows, setRows] = useState<any[]>([]);
+  const [rows, setRows] = useState<MetadataRow[]>([]);
   const [format, setFormat] = useState<ExportFormat>("adobe");
-  const [loading, setLoading] = useState(false);
   
   const adobeHeaders = ["Filename", "Title", "Keywords", "Category", "Releases"] as const;
   const shutterstockHeaders = ["Filename", "Description", "Keywords", "Categories", "Editorial", "Mature Content", "Illustration"] as const;

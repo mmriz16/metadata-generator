@@ -1,6 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
-import shutterstockCategoryMapping from "@/lib/shutterstockCategoryMapping.json";
+
+interface ShutterstockResult {
+  filename: string;
+  description: string;
+  keywords: string;
+  categories: string;
+  editorial: string;
+  matureContent: string;
+  illustration: string;
+}
 
 const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
@@ -11,7 +20,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "filenames must be an array" }, { status: 400 });
     }
 
-    const results: any[] = [];
+    const results: ShutterstockResult[] = [];
 
     for (const filename of filenames) {
       // Description (up to 200 characters)
