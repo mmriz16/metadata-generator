@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import OpenAI from "openai";
+import openai from "@/lib/openai";
 
 interface ShutterstockResult {
   filename: string;
@@ -11,7 +11,7 @@ interface ShutterstockResult {
   illustration: string;
 }
 
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
 
 export async function POST(req: NextRequest) {
   try {
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
 
     for (const filename of filenames) {
       // Description (up to 200 characters)
-      const descResp = await client.chat.completions.create({
+      const descResp = await openai.chat.completions.create({
         model: "gpt-4o-mini",
         messages: [
           { role: "system", content: "You are an expert AI assistant that generates detailed descriptions for stock media. Create unique and detailed descriptions in English." },
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
       const description = (descResp.choices?.[0]?.message?.content || "").slice(0, 200);
 
       // Keywords (up to 50 keywords)
-      const kwResp = await client.chat.completions.create({
+      const kwResp = await openai.chat.completions.create({
         model: "gpt-4o-mini",
         messages: [
           { role: "system", content: "You are an AI assistant who helps create metadata for stock media." },
@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
         .join(", ");
 
       // Categories (AI-powered category determination)
-      const categoryResp = await client.chat.completions.create({
+      const categoryResp = await openai.chat.completions.create({
         model: "gpt-4o-mini",
         messages: [
           { role: "system", content: "You are an AI assistant that categorizes stock media into Shutterstock categories. You must respond with 1-2 category names separated by commas." },
