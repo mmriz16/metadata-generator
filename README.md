@@ -130,17 +130,17 @@ Generate high-quality metadata (titles, descriptions, keywords, categories) for 
 src/
 ├── app/
 │   ├── api/
-│   │   ├── metadata/          # Adobe Stock API
-│   │   └── shutterstock-metadata/  # Shutterstock API
-│   ├── page.tsx              # Home page with upload
-│   ├── review/               # Review & edit interface
-│   └── export/               # CSV export page
+│   │   ├── metadata/                     # Adobe Stock API
+│   │   └── shutterstock-metadata/        # Shutterstock API
+│   ├── page.tsx                          # Home page with upload
+│   ├── review/                           # Review & edit interface
+│   └── export/                           # CSV export page
 ├── components/
-│   ├── ui/                   # shadcn/ui components
-│   └── uploader/             # File upload components
+│   ├── ui/                               # shadcn/ui components
+│   └── uploader/                         # File upload components
 └── lib/
-    ├── openai.js             # OpenAI integration
-    ├── categoryMapping.json  # Adobe Stock categories
+    ├── openai.js                         # OpenAI integration
+    ├── categoryMapping.json              # Adobe Stock categories
     └── shutterstockCategoryMapping.json  # Shutterstock categories
 ```
 
