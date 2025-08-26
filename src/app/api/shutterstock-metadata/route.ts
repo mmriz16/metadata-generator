@@ -112,8 +112,9 @@ Respond with 1-2 most relevant category names separated by commas:` }
     }
 
     return NextResponse.json({ data: results });
-  } catch (e: any) {
+  } catch (e: unknown) {
     console.error(e);
-    return NextResponse.json({ error: e?.message || "Internal Server Error" }, { status: 500 });
+    const errorMessage = e instanceof Error ? e.message : "Internal Server Error";
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

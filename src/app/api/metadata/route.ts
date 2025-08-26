@@ -129,8 +129,9 @@ Respond with ONLY the category number (1-21):` }
     }
 
     return NextResponse.json({ data: results });
-  } catch (e: any) {
+  } catch (e: unknown) {
     console.error(e);
-    return NextResponse.json({ error: e?.message || "Internal Server Error" }, { status: 500 });
+    const errorMessage = e instanceof Error ? e.message : "Internal Server Error";
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
