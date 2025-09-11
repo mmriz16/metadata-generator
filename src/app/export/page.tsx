@@ -101,7 +101,7 @@ export default function ExportPage() {
 
   return (
     <div className="bg-gray-50" style={{ minHeight: 'calc(100vh - 80px)' }}>
-      <div className="max-w-6xl mx-auto py-10 px-4 space-y-8">
+      <div className="max-w-6xl mx-auto py-10 px-4 sm:px-6 space-y-8">
       <div className="text-center space-y-4">
         <h1 className="text-3xl font-bold text-gray-900">Export CSV</h1>
         <p className="text-gray-600">
@@ -111,8 +111,8 @@ export default function ExportPage() {
         </p>
       </div>
       
-      <div className="flex justify-between items-center">
-        <Button asChild variant="outline">
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+        <Button asChild variant="outline" className="w-full sm:w-auto">
           <Link href="/review">← Back to Review</Link>
         </Button>
         
@@ -120,7 +120,7 @@ export default function ExportPage() {
            onClick={handleDownload} 
            disabled={rows.length === 0}
            size="lg"
-           className="bg-green-600 hover:bg-green-700 text-white"
+           className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white"
          >
            📥 Download CSV ({rows.length} files)
          </Button>

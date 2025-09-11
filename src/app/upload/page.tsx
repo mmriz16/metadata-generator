@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 export default function UploadPage() {
   return (
     <div className="bg-gray-50 flex flex-col" style={{ height: 'calc(100vh - 80px)' }}>
-      <div className="flex-1 flex flex-col justify-between max-w-4xl mx-auto w-full px-4">
+      <div className="flex-1 flex flex-col justify-between max-w-4xl mx-auto w-full px-4 sm:px-6">
          {/* Header Section */}
          <div className="pt-8">
            <div className="text-center space-y-2">
@@ -23,11 +23,11 @@ export default function UploadPage() {
          
          {/* Bottom Navigation */}
          <div className="pb-8">
-           <div className="flex justify-between items-center">
-             <Button asChild variant="outline">
+           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+             <Button asChild variant="outline" className="w-full sm:w-auto">
                <Link href="/">← Back to Home</Link>
              </Button>
-             <Button asChild size="lg">
+             <Button asChild size="lg" className="w-full sm:w-auto">
                <Link href="/review">Next: Generate Metadata →</Link>
              </Button>
            </div>

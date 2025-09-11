@@ -98,7 +98,7 @@ export default function ReviewPage() {
 
   return (
     <div className="bg-gray-50" style={{ minHeight: 'calc(100vh - 80px)' }}>
-      <div className="max-w-7xl mx-auto py-10 px-4 space-y-8">
+      <div className="max-w-7xl mx-auto py-10 px-4 sm:px-6 space-y-8">
       <div className="text-center space-y-4">
         <h1 className="text-3xl font-bold text-gray-900">Review & Edit Metadata</h1>
         <p className="text-gray-600">
@@ -162,18 +162,18 @@ export default function ReviewPage() {
         </div>
       )}
       
-      <div className="flex justify-between items-center">
-        <Button asChild variant="outline">
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+        <Button asChild variant="outline" className="w-full sm:w-auto">
           <Link href="/">← Back to Home</Link>
         </Button>
-        <Button asChild disabled={rows.length === 0} size="lg">
+        <Button asChild disabled={rows.length === 0} size="lg" className="w-full sm:w-auto">
           <Link href="/export">
             Next: Export CSV →
           </Link>
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {rows.map((row, idx) => (
           <div key={`${row.filename}-${idx}`} className="bg-white border border-gray-200 rounded-xl p-5 space-y-4 hover:shadow-lg transition-all duration-200 hover:border-gray-300">
             <h3 className="font-semibold text-sm lg:text-lg text-gray-900 truncate" title={row.filename}>
