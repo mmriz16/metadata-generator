@@ -1,4 +1,4 @@
-# AS Metadata Generator
+# Metadata Generator
 
 🚀 **AI-powered metadata generator for Adobe Stock and Shutterstock platforms**
 

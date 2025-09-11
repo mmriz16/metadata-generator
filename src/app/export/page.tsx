@@ -100,7 +100,8 @@ export default function ExportPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto py-10 space-y-8">
+    <div className="bg-gray-50" style={{ minHeight: 'calc(100vh - 80px)' }}>
+      <div className="max-w-6xl mx-auto py-10 px-4 space-y-8">
       <div className="text-center space-y-4">
         <h1 className="text-3xl font-bold text-gray-900">Export CSV</h1>
         <p className="text-gray-600">
@@ -212,8 +213,7 @@ export default function ExportPage() {
           </TableBody>
         </Table>
       </div>
-
-
+      </div>
     </div>
   );
 }
