@@ -16,6 +16,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Metadata Generator",
   description: "Generate Adobe Stock metadata (title, keywords, category) and export CSV",
+  icons: {
+    icon: '/img/logo.png',
+    shortcut: '/img/logo.png',
+    apple: '/img/logo.png',
+  },
 };
 
 export default function RootLayout({
@@ -32,9 +37,9 @@ export default function RootLayout({
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
             <div className="flex items-center justify-between">
               <Link href="/" className="flex items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center">
-                  <span className="text-white text-sm sm:text-lg font-bold">AS</span>
-                </div>
+                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl overflow-hidden bg-white border border-gray-200 flex items-center justify-center">
+                   <img src="/img/logo.png" alt="Logo" className="w-full h-full object-contain" />
+                 </div>
                 <div className="hidden sm:block">
                   <h1 className="text-xl font-bold text-gray-900">Metadata Generator</h1>
                   <p className="text-xs text-gray-500">AI-powered metadata generation</p>
