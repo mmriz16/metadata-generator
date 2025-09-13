@@ -57,6 +57,13 @@ export default function ReviewPage() {
     const row = rows[idx];
     if (!row) return;
     
+    // Check if API key is available
+    const apiKey = localStorage.getItem('openai_api_key');
+    if (!apiKey) {
+      alert('Please set your OpenAI API key in Settings first.');
+      return;
+    }
+    
     const key = `${idx}-${field}`;
     setRegenerating(prev => ({ ...prev, [key]: true }));
     
@@ -64,7 +71,10 @@ export default function ReviewPage() {
       const apiEndpoint = platform === "adobe" ? "/api/metadata" : "/api/shutterstock-metadata";
       const resp = await fetch(apiEndpoint, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "x-openai-api-key": apiKey,
+        },
         body: JSON.stringify({ filenames: [row.filename] }),
       });
       const json = await resp.json();

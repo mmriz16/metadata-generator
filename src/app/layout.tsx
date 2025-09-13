@@ -49,15 +49,19 @@ export default function RootLayout({
                  </div>
               </Link>
               <nav className="flex items-center gap-1">
-                <Link href="/review" className="px-2 sm:px-4 py-2 text-xs sm:text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all">
-                  <span className="sm:hidden">📝</span>
-                  <span className="hidden sm:inline">📝 Review</span>
-                </Link>
-                <Link href="/export" className="px-2 sm:px-4 py-2 text-xs sm:text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all">
-                  <span className="sm:hidden">📥</span>
-                  <span className="hidden sm:inline">📥 Export</span>
-                </Link>
-              </nav>
+                 <Link href="/review" className="px-2 sm:px-4 py-2 text-xs sm:text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all">
+                   <span className="sm:hidden">📝</span>
+                   <span className="hidden sm:inline">📝 Review</span>
+                 </Link>
+                 <Link href="/export" className="px-2 sm:px-4 py-2 text-xs sm:text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all">
+                   <span className="sm:hidden">📥</span>
+                   <span className="hidden sm:inline">📥 Export</span>
+                 </Link>
+                 <Link href="/settings" className="px-2 sm:px-4 py-2 text-xs sm:text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all">
+                   <span className="sm:hidden">⚙️</span>
+                   <span className="hidden sm:inline">⚙️ Settings</span>
+                 </Link>
+               </nav>
             </div>
           </div>
         </header>

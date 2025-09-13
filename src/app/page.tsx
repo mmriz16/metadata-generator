@@ -141,7 +141,19 @@ export default function Home() {
                     <p className="text-xs text-green-600">Ready for metadata generation</p>
                   </div>
                 </div>
-                <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl transition-all duration-200">
+                <Button 
+                  asChild 
+                  size="lg" 
+                  className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl transition-all duration-200"
+                  onClick={() => {
+                    const apiKey = localStorage.getItem('openai_api_key');
+                    if (!apiKey) {
+                      alert('Please set your OpenAI API key in Settings first.');
+                      window.location.href = '/settings';
+                      return false;
+                    }
+                  }}
+                >
                   <Link href="/generate">Next: Generate Metadata →</Link>
                 </Button>
               </div>

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import openai from "@/lib/openai";
+import OpenAI from 'openai';
 
 interface MetadataResult {
   filename: string;
@@ -14,7 +14,10 @@ const defaultCategory = 8;
 /**
  * Generates metadata for a single filename
  */
-async function generateMetadataForFile(filename: string): Promise<MetadataResult> {
+async function generateMetadataForFile(filename: string, apiKey: string): Promise<MetadataResult> {
+  const openai = new OpenAI({
+    apiKey: apiKey,
+  });
   // Create title and keywords requests in parallel
   const [titleResp, kwResp] = await Promise.all([
     // Title generation
@@ -159,6 +162,14 @@ Respond with ONLY the number (1-21):`
 export async function POST(request: NextRequest) {
   try {
     const { filenames } = await request.json();
+    const apiKey = request.headers.get('x-openai-api-key');
+
+    if (!apiKey) {
+      return NextResponse.json(
+        { error: "OpenAI API key is required. Please set it in Settings." },
+        { status: 401 }
+      );
+    }
 
     if (!filenames || !Array.isArray(filenames)) {
       return NextResponse.json(
@@ -176,7 +187,7 @@ export async function POST(request: NextRequest) {
 
     // Process all filenames in parallel for better performance
     const results: MetadataResult[] = await Promise.all(
-      filenames.map((filename: string) => generateMetadataForFile(filename))
+      filenames.map((filename: string) => generateMetadataForFile(filename, apiKey))
     );
 
     return NextResponse.json({ data: results });

@@ -35,30 +35,55 @@ export default function GeneratePage() {
   const handleGenerate = async () => {
     if (items.length === 0) return;
     
+    // Check if API key is available
+    const apiKey = localStorage.getItem('openai_api_key');
+    if (!apiKey) {
+      alert('Please set your OpenAI API key in Settings first.');
+      router.push('/settings');
+      return;
+    }
+    
     setLoading(true);
     try {
-      const formData = new FormData();
+      const apiEndpoint = platform === "adobe" ? "/api/metadata" : "/api/shutterstock-metadata";
+      const filenames = items.map(item => item.filename);
       
-      // Add files to FormData
-      items.forEach((item, index) => {
-        if (item.file) {
-          formData.append('files', item.file);
-        }
-      });
-      
-      formData.append('platform', platform);
-      
-      const response = await fetch('/api/generate-metadata', {
+      const response = await fetch(apiEndpoint, {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+          'x-openai-api-key': apiKey,
+        },
+        body: JSON.stringify({ filenames }),
       });
       
       if (response.ok) {
         const result = await response.json();
-        localStorage.setItem('generatedMetadata', JSON.stringify(result));
+        const results = result?.data ?? [];
+        localStorage.setItem('metadata_rows', JSON.stringify(results));
+        localStorage.setItem('selected_platform', platform);
+        
+        // Calculate and save token usage
+        const fileCount = items.length;
+        const estimatedTokensPerFile = platform === "adobe" ? 305 : 350;
+        const totalTokens = fileCount * estimatedTokensPerFile;
+        const estimatedCost = totalTokens * 0.00015; // $0.00015 per 1K tokens for GPT-4o-mini
+        const requestCount = fileCount * (platform === "adobe" ? 3 : 2);
+        
+        const tokenUsage = {
+          totalTokens,
+          estimatedCost,
+          requestCount
+        };
+        localStorage.setItem('token_usage', JSON.stringify(tokenUsage));
+        
         router.push('/review');
       } else {
-        console.error('Failed to generate metadata');
+        const errorData = await response.json();
+        alert(errorData.error || 'Failed to generate metadata');
+        if (response.status === 401) {
+          router.push('/settings');
+        }
       }
     } catch (error) {
       console.error('Error generating metadata:', error);

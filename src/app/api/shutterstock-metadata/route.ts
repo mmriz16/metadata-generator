@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import openai from "@/lib/openai";
+import OpenAI from 'openai';
 
 interface ShutterstockResult {
   filename: string;
@@ -16,9 +16,22 @@ interface ShutterstockResult {
 export async function POST(req: NextRequest) {
   try {
     const { filenames } = await req.json();
+    const apiKey = req.headers.get('x-openai-api-key');
+
+    if (!apiKey) {
+      return NextResponse.json(
+        { error: "OpenAI API key is required. Please set it in Settings." },
+        { status: 401 }
+      );
+    }
+
     if (!Array.isArray(filenames)) {
       return NextResponse.json({ error: "filenames must be an array" }, { status: 400 });
     }
+
+    const openai = new OpenAI({
+      apiKey: apiKey,
+    });
 
     const results: ShutterstockResult[] = [];
 
