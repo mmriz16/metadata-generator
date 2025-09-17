@@ -56,8 +56,6 @@ export default function Home() {
     }));
     localStorage.setItem('uploadedFiles', JSON.stringify(itemsToSave));
     
-    // Also save the actual files separately (for form submission)
-    const filesArray = updatedItems.map(item => item.file).filter(Boolean);
     // Note: Files can't be directly stored in localStorage, so we'll handle this in the generate page
   }, [items]);
 

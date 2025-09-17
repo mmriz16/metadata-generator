@@ -156,7 +156,7 @@ export default function SettingsPage() {
           <div className="space-y-2 text-sm text-blue-800">
             <p>1. Visit <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer" className="underline hover:text-blue-600">OpenAI API Keys page</a></p>
             <p>2. Sign in to your OpenAI account</p>
-            <p>3. Click "Create new secret key"</p>
+            <p>3. Click &quot;Create new secret key&quot;</p>
             <p>4. Copy the generated key and paste it above</p>
             <p>5. Make sure you have sufficient credits in your OpenAI account</p>
           </div>

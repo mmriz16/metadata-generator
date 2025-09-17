@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
+import Image from "next/image";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -38,7 +39,7 @@ export default function RootLayout({
             <div className="flex items-center justify-between">
               <Link href="/" className="flex items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity">
                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl overflow-hidden bg-white border border-gray-200 flex items-center justify-center">
-                   <img src="/img/logo.png" alt="Logo" className="w-full h-full object-contain" />
+                   <Image src="/img/logo.png" alt="Logo" width={40} height={40} className="w-full h-full object-contain" />
                  </div>
                 <div className="hidden sm:block">
                   <h1 className="text-xl font-bold text-gray-900">Metadata Generator</h1>

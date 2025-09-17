@@ -91,9 +91,14 @@ export default function ReviewPage() {
         
         // Update token usage (estimate based on regeneration)
         const estimatedTokens = field === 'title' ? 100 : field === 'keywords' ? 200 : 150;
+        // GPT-4o-mini pricing: $0.15 per 1M input tokens, $0.60 per 1M output tokens
+        // Assuming 70% input, 30% output tokens
+        const inputTokens = Math.floor(estimatedTokens * 0.7);
+        const outputTokens = Math.floor(estimatedTokens * 0.3);
+        const additionalCost = (inputTokens * 0.15 / 1000000) + (outputTokens * 0.60 / 1000000);
         const newTokenUsage = {
           totalTokens: tokenUsage.totalTokens + estimatedTokens,
-          estimatedCost: tokenUsage.estimatedCost + (estimatedTokens * 0.00015), // $0.00015 per 1K tokens for GPT-4o-mini
+          estimatedCost: tokenUsage.estimatedCost + additionalCost,
           requestCount: tokenUsage.requestCount + 1
         };
         setTokenUsage(newTokenUsage);
@@ -183,9 +188,9 @@ export default function ReviewPage() {
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-2">
         {rows.map((row, idx) => (
-          <div key={`${row.filename}-${idx}`} className="bg-white border border-gray-200 rounded-xl p-5 space-y-4 hover:shadow-lg transition-all duration-200 hover:border-gray-300">
+          <div key={`${row.filename}-${idx}`} className="bg-white border border-gray-200 rounded-xl p-2 space-y-4 hover:shadow-lg transition-all duration-200 hover:border-gray-300">
             <h3 className="font-semibold text-sm lg:text-lg text-gray-900 truncate" title={row.filename}>
                {row.filename}
              </h3>
