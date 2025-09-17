@@ -2,7 +2,7 @@
 
 🚀 **AI-powered metadata generator for Adobe Stock and Shutterstock platforms**
 
-Generate high-quality metadata (titles, descriptions, keywords, categories) for your stock images and icons using OpenAI's GPT-4o-mini. Streamline your stock photography workflow with intelligent automation.
+Generate high-quality metadata (titles, descriptions, keywords, categories) for your stock images and icons using OpenAI's GPT-4o-mini. Streamline your stock photography workflow with intelligent automation and your own API key.
 
 ## ✨ Features
 
@@ -12,20 +12,27 @@ Generate high-quality metadata (titles, descriptions, keywords, categories) for 
 
 ### 🤖 **AI-Powered Generation**
 - **GPT-4o-mini Integration**: Advanced AI for contextual metadata generation
+- **Your Own API Key**: Use your personal OpenAI API key for full control
 - **Smart Category Mapping**: Automatic category assignment based on filename and content
 - **Individual Regeneration**: Regenerate specific fields without affecting others
+- **Accurate Cost Estimation**: Real-time token usage and cost calculation
 
 ### 🎨 **Modern User Interface**
 - **Responsive Design**: Works seamlessly on desktop and mobile
 - **Card-Based Layout**: Clean, organized interface for easy editing
+- **Icon Preview**: Visual preview of uploaded files in generate page
 - **Tag Interface**: Interactive keyword management with add/remove functionality
 - **Real-time Counter**: Track keyword limits (49 for Adobe Stock, 50 for Shutterstock)
+- **Settings Page**: Easy API key configuration with local storage
 
 ### 📊 **Workflow Management**
-- **Integrated Upload**: Drag & drop file upload with platform selection
+- **Multi-Step Process**: Upload → Generate → Review → Export
+- **Integrated Upload**: Drag & drop file upload with preview
+- **Generate Page**: Platform selection with file preview grid
 - **Review & Edit**: Comprehensive editing interface with field-specific regeneration
 - **CSV Export**: Download platform-specific CSV files ready for upload
 - **Progress Tracking**: Visual feedback throughout the generation process
+- **Token Usage Analytics**: Real-time cost tracking and usage statistics
 
 ## 🛠️ Tech Stack
 
@@ -39,15 +46,15 @@ Generate high-quality metadata (titles, descriptions, keywords, categories) for 
 ## 📋 Prerequisites
 
 - Node.js 18+ 
-- OpenAI API Key
+- OpenAI API Key (you'll add this in the app settings)
 - Modern web browser
 
 ## 🚀 Installation
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/mmriz16/as-metadata-generator.git
-   cd as-metadata-generator
+   git clone https://github.com/mmriz16/metadata-generator.git
+   cd metadata-generator
    ```
 
 2. **Install dependencies**
@@ -55,38 +62,46 @@ Generate high-quality metadata (titles, descriptions, keywords, categories) for 
    npm install
    ```
 
-3. **Environment setup**
-   ```bash
-   cp .env.example .env.local
-   ```
-   
-   Add your OpenAI API key to `.env.local`:
-   ```env
-   OPENAI_API_KEY=your_openai_api_key_here
-   ```
-
-4. **Run the development server**
+3. **Run the development server**
    ```bash
    npm run dev
    ```
 
-5. **Open your browser**
+4. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
+
+5. **Configure your API key**
+   - Click on "⚙️ Settings" in the navigation
+   - Enter your OpenAI API key
+   - Click "Save API Key"
+   - Your key is stored locally and never sent to our servers
 
 ## 📖 Usage
 
-### 1. **Upload Files**
-- Drag & drop your image files (SVG, PNG, AI) onto the upload area
-- Select your target platform (Adobe Stock or Shutterstock)
-- Click "Generate Metadata" to start AI processing
+### 1. **Setup (First Time Only)**
+- Visit the Settings page (⚙️ Settings)
+- Get your OpenAI API key from [OpenAI Platform](https://platform.openai.com/api-keys)
+- Enter and save your API key (stored locally in your browser)
 
-### 2. **Review & Edit**
+### 2. **Upload Files**
+- Drag & drop your image files (SVG, PNG, AI) onto the upload area
+- Files are displayed with preview thumbnails
+- Click "Next: Generate Metadata" to proceed
+
+### 3. **Generate Metadata**
+- Review uploaded files with visual previews
+- Select your target platform (Adobe Stock or Shutterstock)
+- Click "✨ Generate Metadata" to start AI processing
+- View real-time token usage and cost estimation
+
+### 4. **Review & Edit**
 - Review AI-generated metadata in the card-based interface
 - Edit any field manually if needed
 - Use "Re-Generate" buttons to regenerate specific fields
 - Manage keywords with the interactive tag interface
+- Monitor token usage and costs in real-time
 
-### 3. **Export CSV**
+### 5. **Export CSV**
 - Navigate to the Export page
 - Review the final metadata in table format
 - Download platform-specific CSV file
@@ -97,6 +112,34 @@ Generate high-quality metadata (titles, descriptions, keywords, categories) for 
 - **SVG** (.svg) - Vector graphics
 - **PNG** (.png) - Raster images
 - **AI** (.ai) - Adobe Illustrator files
+
+## 💰 Pricing & Cost Control
+
+### **Your API Key, Your Control**
+- **Bring Your Own Key**: Use your personal OpenAI API key
+- **Direct Billing**: Costs go directly to your OpenAI account
+- **No Hidden Fees**: No markup or additional charges from us
+- **Full Transparency**: Real-time token usage and cost tracking
+
+### **GPT-4o-mini Pricing (2024)**
+- **Input Tokens**: $0.15 per 1M tokens
+- **Output Tokens**: $0.60 per 1M tokens
+- **Typical Cost**: ~$0.0009 for 10 files (extremely affordable)
+- **Real-time Calculation**: See exact costs before and after generation
+
+## 🔒 Security & Privacy
+
+### **Local Storage Only**
+- **Browser Storage**: API key stored locally in your browser
+- **No Server Storage**: We never store or see your API key
+- **Domain Specific**: Key only accessible on this application
+- **Full Control**: You can clear or change your key anytime
+
+### **Data Privacy**
+- **No Data Collection**: We don't collect or store your files or metadata
+- **Client-Side Processing**: File previews generated in your browser
+- **Direct API Calls**: Your requests go directly to OpenAI
+- **Session Storage**: Generated metadata stored locally until export
 
 ## 📊 Platform Specifications
 
@@ -116,15 +159,41 @@ Generate high-quality metadata (titles, descriptions, keywords, categories) for 
 
 ## 🔧 Configuration
 
+### API Key Management
+- **Settings Page**: `/settings` - Configure your OpenAI API key
+- **Local Storage**: API key stored in browser localStorage
+- **Validation**: Real-time API key format validation
+- **Security**: Keys never transmitted to our servers
+
 ### Category Mapping
 - **Adobe Stock**: `src/lib/categoryMapping.json`
 - **Shutterstock**: `src/lib/shutterstockCategoryMapping.json`
 
-### OpenAI Settings
-- Model: GPT-4o-mini
-- Configuration: `src/lib/openai.js`
+### OpenAI Integration
+- **Model**: GPT-4o-mini (cost-efficient)
+- **Dynamic Instances**: Created per-request with user's API key
+- **Token Tracking**: Real-time usage and cost calculation
+- **Error Handling**: Proper 401 responses for missing/invalid keys
 
 ## 📁 Project Structure
+
+### **Pages**
+- `/` - Home page with drag & drop upload
+- `/generate` - Platform selection with file preview
+- `/review` - Metadata review and editing
+- `/export` - CSV download and final review
+- `/settings` - API key configuration
+- `/upload` - Alternative upload interface
+
+### **API Routes**
+- `/api/metadata` - Adobe Stock metadata generation
+- `/api/shutterstock-metadata` - Shutterstock metadata generation
+
+### **Key Features**
+- **localStorage Integration**: Persistent API key and session data
+- **Image Optimization**: Next.js Image component for previews
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Real-time Updates**: Live token usage and cost tracking
 
 ```
 src/
